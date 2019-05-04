@@ -3,8 +3,8 @@ package com.yakimov.exceptions;
 public class ActiveRecordException extends Exception {
     public enum ErrorCode{
         OK("OK"),
-        USER_EXISTS_ERROR("User with this login already exist"),
-        USER_DOESNT_EXISTS_ERROR("User doesnt exist"),
+        RECORD_EXISTS_ERROR("Record with this data already exist"),
+        RECORD_DOESNT_EXISTS_ERROR("Record doesnt exist"),
         SQL_CONNECTION_ERROR("SQL Connection error"),
         PARSE_ERROR("Error while parsing result");
         

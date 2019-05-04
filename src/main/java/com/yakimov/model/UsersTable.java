@@ -1,6 +1,5 @@
 package com.yakimov.model;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +23,7 @@ public class UsersTable extends DataTable<User> {
 
     @Override
     public void create(User record) throws ActiveRecordException {
-        try (RecordConnection connection = new RecordConnection();) {
+        try (UsersConnection connection = new UsersConnection();) {
             String query = String.format("INSERT INTO users(login,password) VALUES('%s', '%s')", record.getLogin(),
                     record.getPassword());
             connection.prepareStatement(query);
@@ -34,7 +33,7 @@ public class UsersTable extends DataTable<User> {
 
     @Override
     public void update(int id, User record) throws ActiveRecordException {
-        try (RecordConnection connection = new RecordConnection();) {
+        try (UsersConnection connection = new UsersConnection();) {
             String query = String.format("UPDATE USERS " + "SET login = '%s', password = '%s'" + " WHERE id = '%d'",
                     record.getLogin(), record.getPassword(), id);
             connection.prepareStatement(query);
@@ -44,7 +43,7 @@ public class UsersTable extends DataTable<User> {
 
     @Override
     public void delete(int id) throws ActiveRecordException {
-        try (RecordConnection connection = new RecordConnection();) {
+        try (UsersConnection connection = new UsersConnection();) {
             String query = String.format("DELETE from USERS WHERE id = %d", id);
             connection.prepareStatement(query);
             connection.executeUpdate();
@@ -52,7 +51,7 @@ public class UsersTable extends DataTable<User> {
     }
     
     public void delete(String login) throws ActiveRecordException{
-        try (RecordConnection connection = new RecordConnection();) {
+        try (UsersConnection connection = new UsersConnection();) {
             String query = String.format("DELETE from USERS WHERE login = '%s'", login);
             connection.prepareStatement(query);
             connection.executeUpdate();
@@ -62,7 +61,7 @@ public class UsersTable extends DataTable<User> {
     @Override
     public Optional<User> getRecordById(int id) throws ActiveRecordException{
         Optional<User> user = Optional.empty();
-        try (RecordConnection connection = new RecordConnection();) {
+        try (UsersConnection connection = new UsersConnection();) {
             String query = String.format("SELECT * from USERS WHERE id = %d", id);
             connection.prepareStatement(query);
             UserResult result = connection.executeQuery();
@@ -74,7 +73,7 @@ public class UsersTable extends DataTable<User> {
     
     public Optional<User> getRecordByLogin(String login) throws ActiveRecordException{
         Optional<User> user = Optional.empty();
-        try (RecordConnection connection = new RecordConnection();) {
+        try (UsersConnection connection = new UsersConnection();) {
             String query = String.format("SELECT * from USERS WHERE login = '%s'", login);
             connection.prepareStatement(query);
             UserResult result = connection.executeQuery();
@@ -84,29 +83,29 @@ public class UsersTable extends DataTable<User> {
     }
     
     public void executeSystemUpdate(String query) throws ActiveRecordException{
-        try (RecordConnection connection = new RecordConnection();) {
+        try (UsersConnection connection = new UsersConnection();) {
             connection.prepareStatement(query);
             connection.executeUpdate();
         }
     }
     
-    public void executeSystemQuery(String query) throws ActiveRecordException{
-        try (RecordConnection connection = new RecordConnection();) {
+    public UserResult executeSystemQuery(String query) throws ActiveRecordException{
+        try (UsersConnection connection = new UsersConnection();) {
             connection.prepareStatement(query);
-            connection.executeQuery();
+            return connection.executeQuery();
         }
     }
 
     @Override
     public List<User> getRecordsListByIds(int... IDs) throws ActiveRecordException {
-        List<User> list = null;
-        try (RecordConnection connection = new RecordConnection();) {
+        List<User> list;
+        try (UsersConnection connection = new UsersConnection();) {
             String query = createQueryForIds(IDs);
             connection.prepareStatement(query);
             UserResult result = connection.executeQuery();
-            list = result.parseToUsersList();
+            list = result.parseToRecordsList();
         }
-        return list != null ? list : Collections.emptyList();
+        return list;
     }
     private String createQueryForIds(int ...IDs) {
         StringBuffer buffer = new StringBuffer("SELECT * from USERS WHERE ");
@@ -126,24 +125,24 @@ public class UsersTable extends DataTable<User> {
     @Override
     public List<User> getRecordsListByRule(String rule) throws ActiveRecordException {
         List<User> list = null;
-        try (RecordConnection connection = new RecordConnection();) {
+        try (UsersConnection connection = new UsersConnection();) {
             String query = String.format("SELECT * from USERS WHERE " + rule);
             connection.prepareStatement(query);
             UserResult result = connection.executeQuery();
-            list = result.parseToUsersList();
+            list = result.parseToRecordsList();
         }
-        return list != null ? list : Collections.emptyList();
+        return list;
     }
 
     @Override
     public List<User> getAllRecordsList() throws ActiveRecordException {
         List<User> list = null;
-        try (RecordConnection connection = new RecordConnection();) {
+        try (UsersConnection connection = new UsersConnection();) {
             String query = String.format("SELECT * from USERS");
             connection.prepareStatement(query);
             UserResult result = connection.executeQuery();
-            list = result.parseToUsersList();
+            list = result.parseToRecordsList();
         }
-        return list != null ? list : Collections.emptyList();
+        return list;
     }
 }

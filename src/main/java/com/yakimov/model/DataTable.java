@@ -16,4 +16,8 @@ public abstract class DataTable<Record>{
     abstract public List<Record> getRecordsListByIds(int ...ids) throws ActiveRecordException;
     abstract public List<Record> getRecordsListByRule(String rule) throws ActiveRecordException;
     abstract public List<Record> getAllRecordsList() throws ActiveRecordException;
+    abstract public QueryResult<Record> executeSystemQuery(String query) throws ActiveRecordException;
+    abstract public void executeSystemUpdate(String query) throws ActiveRecordException;
+    
+    
 }

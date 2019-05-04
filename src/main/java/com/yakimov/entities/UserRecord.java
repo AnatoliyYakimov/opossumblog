@@ -13,7 +13,7 @@ public class UserRecord extends ActiveRecord<User> {
 
     @Override
     public void update() throws ActiveRecordException {
-        
+        getLinkedTable().update(user.getId(), user);
     }
 
     @Override
@@ -23,7 +23,6 @@ public class UserRecord extends ActiveRecord<User> {
 
     @Override
     public boolean isValid() {
-        // TODO Auto-generated method stub
         return false;
     }
 

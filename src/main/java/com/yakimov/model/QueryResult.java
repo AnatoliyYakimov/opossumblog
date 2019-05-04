@@ -10,13 +10,25 @@ import com.yakimov.entities.User;
 import com.yakimov.exceptions.ActiveRecordException;
 import com.yakimov.exceptions.ActiveRecordException.ErrorCode;
 
-class UserResult {
-    ResultSet result;
-
-    UserResult(ResultSet result) {
+abstract class QueryResult<Record>{
+    protected ResultSet result;
+    
+    public QueryResult(ResultSet result) {
         this.result = result;
     }
+    
+    abstract public Optional<Record> parseNext() throws ActiveRecordException;
+    abstract public Optional<Record> parseCurrent() throws ActiveRecordException;
+    abstract public List<Record> parseToRecordsList() throws ActiveRecordException;
+}
 
+class UserResult extends QueryResult<User>{
+
+    UserResult(ResultSet result) {
+        super(result);
+    }
+    
+    
     public Optional<User> parseNext() throws ActiveRecordException {
         try {
             result.next();
@@ -47,7 +59,7 @@ class UserResult {
         return !(e.getMessage().startsWith("ResultSet not positioned properly"));
     }
 
-    public List<User> parseToUsersList() throws ActiveRecordException {
+    public List<User> parseToRecordsList() throws ActiveRecordException {
         List<User> list = new ArrayList<>();
         Optional<User> user = parseNext();
         while(user.isPresent()) {
@@ -56,5 +68,4 @@ class UserResult {
         }
         return list;
     }
-
 }
