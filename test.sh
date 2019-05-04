@@ -1,0 +1,1 @@
+exec /usr/bin/google-chrome-stable -incognito http://localhost:8888

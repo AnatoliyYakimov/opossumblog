@@ -1,0 +1,10 @@
+/home/yakimov/Documents/NetBeansProjects/TODOlist/src/main/java/com/yakimov/model/Model.java
+/home/yakimov/Documents/NetBeansProjects/TODOlist/src/main/java/com/yakimov/model/ConnectionsSource.java
+/home/yakimov/Documents/NetBeansProjects/TODOlist/src/main/java/com/yakimov/servlets/AddUserServlet.java
+/home/yakimov/Documents/NetBeansProjects/TODOlist/src/main/java/com/yakimov/entities/ActiveRecord.java
+/home/yakimov/Documents/NetBeansProjects/TODOlist/src/main/java/com/yakimov/entities/UserAR.java
+/home/yakimov/Documents/NetBeansProjects/TODOlist/src/main/java/com/yakimov/filters/AuthFilter.java
+/home/yakimov/Documents/NetBeansProjects/TODOlist/src/main/java/exceptions/ActiveRecordException.java
+/home/yakimov/Documents/NetBeansProjects/TODOlist/src/main/java/com/yakimov/validators/RegistrationValidator.java
+/home/yakimov/Documents/NetBeansProjects/TODOlist/src/main/java/com/yakimov/servlets/LoginServlet.java
+/home/yakimov/Documents/NetBeansProjects/TODOlist/src/main/java/com/yakimov/servlets/SignupServlet.java
