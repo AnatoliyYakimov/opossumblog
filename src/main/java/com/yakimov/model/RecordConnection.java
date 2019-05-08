@@ -37,8 +37,17 @@ public abstract class RecordConnection<Record> implements AutoCloseable{
         try {
             return statement.executeUpdate();
         } catch (SQLException e) {
-            throw new ActiveRecordException(ErrorCode.SQL_CONNECTION_ERROR, e);
+            throw handleSQLExsception(e);
         }
+    }
+    
+    protected ActiveRecordException handleSQLExsception(SQLException ex) {
+        ActiveRecordException recEx = new ActiveRecordException(ErrorCode.SQL_CONNECTION_ERROR,ex);
+        String msg = ex.getMessage();
+        if (msg.startsWith("ERROR: duplicate key value")) {
+            recEx.setErrorCode(ErrorCode.RECORD_EXISTS_ERROR);
+        }
+        return recEx;
     }
     
     public void close() {

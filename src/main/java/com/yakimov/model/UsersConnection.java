@@ -20,15 +20,6 @@ class UsersConnection extends RecordConnection<User>{
             }
         }
         
-        private ActiveRecordException handleSQLExsception(SQLException ex) {
-            ActiveRecordException recEx = new ActiveRecordException(ErrorCode.SQL_CONNECTION_ERROR,ex);
-            String msg = ex.getMessage();
-            if (msg.startsWith("ERROR: duplicate key value")) {
-                recEx.setErrorCode(ErrorCode.RECORD_EXISTS_ERROR);
-            }
-            return recEx;
-        }
-        
         @Override
         public UserResult executeQueryWithArgument(String arg) throws ActiveRecordException {
             try {

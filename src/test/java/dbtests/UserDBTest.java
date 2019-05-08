@@ -19,12 +19,12 @@ import com.yakimov.model.UsersTable;
 public class UserDBTest {
     @BeforeClass
     public static void initializeTestDatabase() {
-//        try {
-//            Class.forName("com.yakimov.model.UsersTable");
-//        } catch (ClassNotFoundException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         ConnectionSource.connectToDatabase("testdb");
     }
 

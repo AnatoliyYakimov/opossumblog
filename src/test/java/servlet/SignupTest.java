@@ -3,70 +3,76 @@
  */
 package servlet;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import java.util.List;
-import com.yakimov.validators.RegistrationValidator;
-
-/**
- * @author yakimov
- *
- */
-public class SignupTest {
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public void signupValidatorShouldBeValid() {
-		String login = "User";
-		String pass = "12345678";
-		String conf = "12345678";
-		List<String> violations = RegistrationValidator.validate(login, pass, conf);
-		
-		assertTrue(violations.isEmpty());
-	}
-	
-	@Test
-	public void signupValidatorShouldBeInvalid() {
-		String login = "User";
-		String pass = "1234567";
-		String conf = "12345678";
-		List<String> violations = RegistrationValidator.validate(login, pass, conf);
-		
-		assertFalse(violations.isEmpty());
-		assertTrue(violations.size() == 2);
-	}
-
-}
+//public class SignupTest {
+//    private static HttpServletRequest req;
+//    private static HttpServletResponse resp;
+//
+//    @Before
+//    public void setUp() throws Exception {
+//        req = Mockito.mock(HttpServletRequest.class);
+//        resp = Mockito.mock(HttpServletResponse.class);
+//        Mockito.mock(HttpServletRequest.class);
+//        Answer<String> ans = new Answer<>() {
+//            @Override
+//            public String answer(InvocationOnMock invocation) throws Throwable {
+//                String ans = null;
+//                switch ((String) invocation.getArgument(0)) {
+//                case "login":
+//                    ans = "User1";
+//                    break;
+//                case "password":
+//                case "passwordConfirmation":
+//                    ans = "12345678";
+//                }
+//                return ans;
+//            }
+//
+//        };
+//    }
+//
+//    @BeforeClass
+//    public static void initializeTestDatabase() {
+//        ConnectionSource.connectToDatabase("testdb");
+//    }
+//
+//    @AfterClass
+//    public static void initializeDefaultDatabase() {
+//        ConnectionSource.connectToDefaultDatabase();
+//    }
+//
+//    @After
+//    public void truncateDatabase() {
+//        try {
+//            UsersTable.getInstance().executeSystemUpdate("TRUNCATE TABLE USERS");
+//            UsersTable.getInstance().executeSystemQuery("SELECT setval('users_id_seq', 1)");
+//        } catch (ActiveRecordException e) {
+//            System.out.println("Error while truncate Query: " + e.getMessage());
+//        }
+//    }
+//
+//    @Test
+//    public void registratingValidUser() throws Exception {
+//        Answer<String> ans = new Answer<>() {
+//            @Override
+//            public String answer(InvocationOnMock invocation) throws Throwable {
+//                String ans = null;
+//                switch ((String) invocation.getArgument(0)) {
+//                case "login":
+//                    ans = "User1";
+//                    break;
+//                case "password":
+//                case "passwordConfirmation":
+//                    ans = "12345678";
+//                }
+//                return ans;
+//            }
+//
+//        };
+//        req = Mockito.mock(HttpServletRequest.class, ans);
+//        SignupServlet serv = new SignupServlet();
+//        serv.service(req, resp);
+//        List<String> violations = (List<String>) req.getAttribute("violations");
+//        assertTrue(violations.isEmpty());
+//        assertTrue(violations.size() == 2);
+//    }
+//}
